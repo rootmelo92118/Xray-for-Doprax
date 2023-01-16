@@ -1,6 +1,6 @@
 FROM nginx:latest
 MAINTAINER ifeng <https://t.me/HiaiFeng>
-EXPOSE 80
+EXPOSE 443
 USER root
 
 RUN apt-get update && apt-get install -y supervisor wget unzip
@@ -13,14 +13,14 @@ ENV VLESS_WSPATH /vless
 COPY supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 COPY nginx.conf /etc/nginx/nginx.conf
 
-RUN mkdir /etc/v2ray /usr/local/v2ray
-COPY config.json /etc/v2ray/
-COPY entrypoint.sh /usr/local/v2ray/
+RUN mkdir /etc/xray /usr/local/xray
+COPY config.json /etc/xray/
+COPY entrypoint.sh /usr/local/xray/
 
 # 感谢 fscarmen 大佬提供 Dockerfile 层优化方案
-RUN wget -q -O /tmp/v2ray-linux-64.zip https://github.com/v2fly/v2ray-core/releases/download/v4.45.0/v2ray-linux-64.zip && \
-    unzip -d /usr/local/v2ray /tmp/v2ray-linux-64.zip && \
-    chmod a+x /usr/local/v2ray/entrypoint.sh
+RUN wget -q -O /tmp/Xray-linux-64.zip https://github.com/XTLS/Xray-core/releases/latest/download/Xray-linux-64.zip && \
+    unzip -d /usr/local/xray /tmp/Xray-linux-64.zip && \
+    chmod a+x /usr/local/xray/entrypoint.sh
 
-ENTRYPOINT [ "/usr/local/v2ray/entrypoint.sh" ]
+ENTRYPOINT [ "/usr/local/xray/entrypoint.sh" ]
 CMD ["/usr/bin/supervisord"]
