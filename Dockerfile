@@ -19,7 +19,9 @@ COPY entrypoint.sh /usr/local/xray/
 
 # 感谢 fscarmen 大佬提供 Dockerfile 层优化方案
 RUN wget -q -O /tmp/Xray-linux-64.zip https://github.com/XTLS/Xray-core/releases/latest/download/Xray-linux-64.zip && \
-    unzip -d /usr/local/xray /tmp/Xray-linux-64.zip && \
+    unzip -d /usr/local/xray /tmp/Xray-linux-64.zip xray && \
+    wget -q -O /usr/local/xray/geosite.dat https://github.com/Loyalsoldier/v2ray-rules-dat/releases/latest/download/geosite.dat && \
+    wget -q -O /usr/local/xray/geoip.dat https://github.com/Loyalsoldier/v2ray-rules-dat/releases/latest/download/geoip.dat && \
     chmod a+x /usr/local/xray/entrypoint.sh
 
 ENTRYPOINT [ "/usr/local/xray/entrypoint.sh" ]
