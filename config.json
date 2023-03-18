@@ -41,7 +41,9 @@
 	],
 	"outbounds": [{
 		"protocol": "freedom",
-		"settings": {}
+		"settings": {
+			"domainStrategy": "UseIP"
+		}
 	}],
 	"dns": {
 		"server": [
